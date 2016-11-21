@@ -25,7 +25,7 @@ class Classifieds extends CI_Controller {
 
 		$data['classifieds_list'] = $classifieds;
 
-		$this->load->view('includes/header');
+		$this->load->view('includes/header', array('title' => 'Jobs in USA'));
 		$this->load->view('classifieds/list', $data);
 		$this->load->view('includes/footer');
 	}

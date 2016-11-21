@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Home extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +20,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+        $this->load->model('classifieds_model');
+        $cities = $this->classifieds_model->get_cities();
+        $data['cities'] = $cities;
+        $this->load->view('includes/header', array('title' => 'Your job search starts here.'));
+		$this->load->view('home', $data);
+        $this->load->view('includes/footer');
 	}
 }

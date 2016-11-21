@@ -23,7 +23,18 @@ class Classifieds_model extends CI_MODEL
 		}
 	}
 
-	function update_classified($data, $id){
+    function get_cities(){
+        $this->db->distinct();
+        $this->db->select('listing_region');
+        $this->db->where('listing_region <> ""');
+        $query = $this->db->get($this->table);
+        if ($query->num_rows() > 0)
+        {
+            return $result = $query->result_array();
+        }
+    }
+
+    function update_classified($data, $id){
 		$this->db->where('id', $id);
 		$this->db->update($this->table, $data); 
 	}
