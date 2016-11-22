@@ -26,7 +26,7 @@
                     <a href="<?php echo base_url('classifieds');?>">Classifieds</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('classifieds');?>">Email Alerts</a>
+                    <a href="<?php echo base_url('alerts');?>">Manage Email Alerts</a>
                 </li>
             </ul>
 

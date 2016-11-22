@@ -43,10 +43,10 @@ class Reminders extends CI_Controller {
                         $this->email->to($alert['email']);
                         $this->email->from($this->from_email);
                         $this->email->subject("Your Daily Job Alert");
-                        $this->email->message("You've requested to receive job alerts for ". $alert['keyword']. ", ". $alert['region']. ".");
+                        $this->email->message("You've requested to receive job alerts for ". $alert['keyword']. ", ". $alert['region']. ".<a href=\'". base_url(''));
                         $this->email->send();
                         $this->alerts_model->update_email_created_date($alert['id']);
-                        echo "Sent to ". $alert['email'];
+                        echo "Sent email to ". $alert['email'];
                     }
                 }
             }

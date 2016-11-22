@@ -9,7 +9,7 @@
         var email = $('#email').val();
         $.ajax({
             type: 'POST',
-            url: '<?php echo base_url()?>classifieds/insert_alert',
+            url: '<?php echo base_url("alerts/insert_alert")?>',
             data: {
                 'keyword'  : keyword,
                 'region'   : region,
