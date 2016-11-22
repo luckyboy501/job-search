@@ -2,10 +2,16 @@
 
 class Classifieds_model extends CI_MODEL
 {
-	
 	private $table = 'classifieds';
 	
-	function get_classifieds_list(){
+	function get_classifieds_list($keyword='', $region='')
+    {
+        if ($region <> '') {
+            $this->db->where('listing_region', $region);
+        }
+	    if ($keyword <> '') {
+            $this->db->where('(title LIKE "%'. $keyword. '%" OR listing_category LIKE "%'. $keyword. '%")');
+        }
 		$query = $this->db->get($this->table);
 		if ($query->num_rows() > 0)
 		{
@@ -13,9 +19,9 @@ class Classifieds_model extends CI_MODEL
 		}
 	}
 
-	function get_classified($id){
-		$condition = array('id'=>$id);
-		$query = $this->db->get_where($this->table, $condition);
+	function get_classified($id)
+    {
+		$query = $this->db->get_where($this->table, array('id'=>$id));
 
 		if ($query->num_rows() > 0)
 		{
@@ -23,7 +29,8 @@ class Classifieds_model extends CI_MODEL
 		}
 	}
 
-    function get_cities(){
+    function get_regions()
+    {
         $this->db->distinct();
         $this->db->select('listing_region');
         $this->db->where('listing_region <> ""');
@@ -34,12 +41,13 @@ class Classifieds_model extends CI_MODEL
         }
     }
 
-    function update_classified($data, $id){
+    function update_classified($data, $id)
+    {
 		$this->db->where('id', $id);
 		$this->db->update($this->table, $data); 
 	}
 
-/*************************************************/
+    /*************************************************/
 	function insert_data($table, $data)
 	{
 		$this->db->insert($table, $data);

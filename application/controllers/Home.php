@@ -21,10 +21,11 @@ class Home extends CI_Controller {
 	public function index()
 	{
         $this->load->model('classifieds_model');
-        $cities = $this->classifieds_model->get_cities();
-        $data['cities'] = $cities;
+        $regions = $this->classifieds_model->get_regions();
+        $data['regions'] = $regions;
         $this->load->view('includes/header', array('title' => 'Your job search starts here.'));
 		$this->load->view('home', $data);
         $this->load->view('includes/footer');
 	}
+
 }
