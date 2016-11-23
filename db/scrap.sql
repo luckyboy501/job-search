@@ -36,16 +36,6 @@ CREATE TABLE `alerts` (
   `is_reminded` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `alerts`
---
-
-INSERT INTO `alerts` (`id`, `email`, `email_created_date`, `keyword`, `region`, `interval`, `is_reminded`) VALUES
-(22, 'morningdew830@mail.com', '2016-11-23 01:48:57', '', '', 5, 1),
-(23, 'vadol830@gmail.com', '2016-11-23 01:49:10', 'MacBook', ' Riyadh ', 30, 1),
-(24, 'morningdew830@mail.com', '2016-11-23 01:49:14', 'MacBook', ' Riyadh ', 30, 1),
-(25, 'morningdew830@mail.com', '2016-11-23 01:49:16', 'MacBook', 'Hellooooooooo', 30, 1);
-
 -- --------------------------------------------------------
 
 --
