@@ -10,7 +10,6 @@ class Alerts extends CI_Controller {
 
 	public function index($email='')
 	{
-	    $email = 'morningdew830@mail.com';
 	    if ($email != '')
 	    {
             $alerts = $this->alerts_model->get_alerts_list($email);
