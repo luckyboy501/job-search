@@ -8,43 +8,56 @@ class Alerts extends CI_Controller {
         $this->load->model('alerts_model');
     }
 
-	public function index()
+	public function index($email='')
 	{
-		$classifieds = $this->classifieds_model->get_classifieds_list();
-        $regions = $this->classifieds_model->get_regions();
+	    $email = 'morningdew830@mail.com';
+	    if ($email != '')
+	    {
+            $alerts = $this->alerts_model->get_alerts_list($email);
 
-		$data['classifieds_list'] = $classifieds;
-        $data['regions'] = $regions;
+            $data['alerts'] = $alerts;
+            $data['email'] = $email;
 
-		$this->load->view('includes/header', array('title' => 'Jobs'));
-		$this->load->view('classifieds/list', $data);
-		$this->load->view('includes/footer');
+            $this->load->view('includes/header', array('title' => 'Email Alerts'));
+            $this->load->view('alerts', $data);
+            $this->load->view('includes/footer');
+        } else {
+            redirect('classifieds');
+        }
 	}
 
-	public function edit_alert($id){
-		$data['classified'] = $this->classifieds_model->get_classified($id);
+    public function update_email(){
+        $params = $this->input->post();
 
-		$this->load->view('includes/header', array('title' => 'Job Edit'));
-		$this->load->view('classifieds/edit', $data);
-		$this->load->view('includes/footer');
-	}
+        $this->alerts_model->update_email($params['email'], $params['new_email']);
+    }
 
-	public function update_alert(){
+    public function get_alert()
+    {
+        $params = $this->input->post();
+        echo json_encode($this->alerts_model->get_alert($params['id']));
+    }
+
+    public function update_alert(){
 		$params = $this->input->post();
-		$this->load->model('classifieds_model');
 
 		$update_data = array(
-			'post_id'	=>	$params['post_id'],
-			'price'	=>	$params['price'],
-			'title'	=>	$params['title']
+			'keyword' => $params['keyword'],
+			'region'  => $params['region']
 		);
 
-		$this->classifieds_model->update_classified($update_data, $params['classified_id']);
+		$this->alerts_model->update_alert($update_data, $params['id']);
 	}
 
     public function insert_alert()
     {
         $params = $this->input->post();
         echo $this->alerts_model->insert_alert($params);
+    }
+
+    public function delete_alert()
+    {
+        $params = $this->input->post();
+        $this->alerts_model->delete_alert($params['id']);
     }
 }

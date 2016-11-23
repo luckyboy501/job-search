@@ -1,3 +1,10 @@
 .input-group-addon {
     width: 40px!important;
 }
+
+.link-alert-edit {
+    color: #00B0F0;
+}
+
+.link-alert-delete {
+}

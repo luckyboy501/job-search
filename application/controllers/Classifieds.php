@@ -31,7 +31,6 @@ class Classifieds extends CI_Controller {
 
 	public function update_class(){
 		$params = $this->input->post();
-		$this->load->model('classifieds_model');
 
 		$update_data = array(
 			'post_id'	=>	$params['post_id'],
