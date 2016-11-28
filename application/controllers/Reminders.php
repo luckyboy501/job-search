@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Reminders extends CI_Controller {
 
-    private $from_email = 'info@webmaster.com';
-    private $timezone = 'America/New_York';
+    private $from_email = 'notify@expatnotify.com';
+    private $timezone = 'Asia/Riyadh';
 
     public function __construct() {
         parent::__construct();
@@ -34,7 +34,7 @@ class Reminders extends CI_Controller {
                 {
                     $minutes = -$minutes;
                 }
-                echo $minutes. ", ". $alert['interval']. "<br>";
+//                echo $minutes. ", ". $alert['interval']. "<br>";
                 if ($minutes >= $alert['interval'])
                 {
                     $classifieds = $this->classifieds_model->get_classifieds_list($alert['keyword'], $alert['region'], $alert['email_updated_datetime']);
@@ -48,16 +48,19 @@ class Reminders extends CI_Controller {
                         $msg = "You've requested to receive job alerts for ";
                         $msg .= $alert['keyword'] != '' ? $alert['keyword'] . ', ' : '';
                         $msg .= $alert['region'];
-                        $msg .= '<br><table style="width:50%">';
-                        $msg .= '<tr><th>Post ID</th><th>Title</th><th>Price</th><th>Region</th><th>Link</th></tr>';
+                        $msg .= '<br><br><br><table style="width:50%;border-spacing:0px;"><thead><tr><th colspan="4" style="font-size:30px;border:none">Job List</th></tr></thead>';
+                        $msg .= '<tr><th>Post ID</th><th>Title</th><th>Price</th><th>Region</th></tr>';
                         foreach ($classifieds as $one) {
-                            $msg .= '<tr><th>'. $one['post_id']. '</th><th>'. $one['title']. '</th><th>'. $one['price']. '</th><th>'. $one['listing_region']. '</th><th>'. $one['link']. '</th></tr>';
+                            $msg .= '<tr><td><a href="'. $one['link']. '">'. $one['post_id']. '</a></td><td>'. $one['title']. '</td><td>'. $one['price']. '</td><td>'. $one['listing_region']. '</td></tr>';
                         }
                         $msg .= '</table><br><br>';
                         $msg .= '.<a href="' . base_url('alerts?email=' . $alert['email']) . '">';
                         $msg .= 'click here to manage all your alerts</a>';
+                        $msg .= '<style>th,td{border:1px solid}</style>';
 
                         $this->email->message($msg);
+
+//                        echo $msg;
 
                         if ($this->email->send()) {
                             echo "Email sent successfully to " . $alert['email'] . ".<br>";
