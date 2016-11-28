@@ -4,13 +4,16 @@ class Classifieds_model extends CI_MODEL
 {
 	private $table = 'classifieds';
 	
-	function get_classifieds_list($keyword='', $region='')
+	function get_classifieds_list($keyword='', $region='', $from='')
     {
         if ($region <> '') {
             $this->db->where('listing_region', $region);
         }
 	    if ($keyword <> '') {
             $this->db->where('(title LIKE "%'. $keyword. '%" OR listing_category LIKE "%'. $keyword. '%")');
+        }
+        if ($from <> '') {
+            $this->db->where('scrapped_date_time >= "'. $from. '"');
         }
 		$query = $this->db->get($this->table);
 		if ($query->num_rows() > 0)

@@ -11,7 +11,7 @@ class Alerts_model extends CI_MODEL
             $this->db->where('email', $email);
         }
         $this->db->where('is_reminded', 1);
-        $this->db->order_by('email_created_date', 'desc');
+        $this->db->order_by('email_updated_datetime', 'desc');
         $query = $this->db->get($this->table);
         if ($query->num_rows() > 0) {
             return $result = $query->result_array();
@@ -51,8 +51,8 @@ class Alerts_model extends CI_MODEL
         return $this->db->insert_id();
     }
 
-    function update_email_created_date($id)
+    function update_email_datetime($id)
     {
-        return $this->db->where('id', $id)->update($this->table, array('email_created_date' => date("Y-m-d H:i:s"), 'is_reminded' => 1));
+        return $this->db->where('id', $id)->update($this->table, array('email_updated_datetime' => date("Y-m-d H:i:s"), 'is_reminded' => 1));
     }
 }

@@ -8,10 +8,12 @@ class Alerts extends CI_Controller {
         $this->load->model('alerts_model');
     }
 
-	public function index($email='')
+	public function index()
 	{
-	    if ($email != '')
-	    {
+        $params = $this->input->get();
+        $email = $params['email'];
+        if (isset($email) && $email != '')
+        {
             $alerts = $this->alerts_model->get_alerts_list($email);
 
             $data['alerts'] = $alerts;

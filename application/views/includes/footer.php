@@ -69,20 +69,24 @@
 
     $('#btn-update-email').on('click', function (e) {
         e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '<?php echo base_url("alerts/update_email")?>',
-            data: {
-                'email' : $('#curr-email').val(),
-                'new_email' : $('#new-email').val()
-            },
-            success: function(results) {
-                alert("Updated your email address");
-            },
-            error: function(error) {
-                alert("Failed in updating email address", error);
-            }
-        });
+        var cur_email = $('#curr-email').val();
+        var new_email = $('#new-email').val();
+        if (cur_email != new_email) {
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url("alerts/update_email")?>',
+                data: {
+                    'email'     : cur_email,
+                    'new_email' : new_email
+                },
+                success: function(results) {
+                    alert("Updated your email address");
+                },
+                error: function(error) {
+                    alert("Failed in updating email address", error);
+                }
+            });
+        }
     });
 
     $('#btn-update-alert').on('click', function (e) {
